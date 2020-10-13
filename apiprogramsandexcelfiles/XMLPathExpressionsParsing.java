@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -94,6 +98,28 @@ public class XMLPathExpressionsParsing
 		String fnodeav=xp.getString("MRData.RaceTable.@season");
 		System.out.println("First node attribute value is "+fnodeav);
 		
+		//Locating Relative
+		List<String> x1=xp.get("**.findAll{it.name()=='Locality'}");
+		for(int i=0;i<x1.size();i++)
+		{
+			System.out.println(x1.get(i));
+		}
+		
+		List<String> w1=xp.get("**.findAll{it.name()=='Date'}");
+		for(int i=0;i<w1.size();i++)
+		{
+			System.out.println(w1.get(i));
+		}
+		
+		String y1=xp.get("**.findAll{it.name()=='Locality'}[0]");
+		System.out.println(y1);
+		
+		String z1=xp.getString("**.findAll{it.name()=='Location'}[0].Country");
+		System.out.println(z1);
+		
+		String p1=xp.get("**.findAll{it.name()=='Location' && it.@long=='144.968'}.Locality");
+		System.out.println(p1);
+		
 		//Create an excel file to store xml response results
 		File f=new File("xmlparsingresults.xlsx");
 		XSSFWorkbook wb=new XSSFWorkbook();
@@ -105,6 +131,23 @@ public class XMLPathExpressionsParsing
 		r.createCell(3).setCellValue("Country");
 		r.createCell(4).setCellValue("Date");
 		r.createCell(5).setCellValue("Time");
+		
+		//Font settings for Headings
+		Font font1=wb.createFont();
+		font1.setColor(IndexedColors.TURQUOISE1.getIndex());
+	    font1.setItalic(true);
+	    font1.setBold(true);
+	    //Cell Style settings for Headings
+		CellStyle cs1=wb.createCellStyle();
+		cs1.setFont(font1);
+		cs1.setAlignment(HorizontalAlignment.CENTER);
+		r.getCell(0).setCellStyle(cs1);
+		r.getCell(1).setCellStyle(cs1);
+		r.getCell(2).setCellStyle(cs1);
+		r.getCell(3).setCellStyle(cs1);
+		r.getCell(4).setCellStyle(cs1);
+		r.getCell(5).setCellStyle(cs1);
+		
 		for(int i=1;i<=19;i++)
 		{
 			String a=xp.get("**.findAll{it.name()=='Race' && it.@round=='"+i+"'}.RaceName");
@@ -120,6 +163,21 @@ public class XMLPathExpressionsParsing
 			r1.createCell(3).setCellValue(d);
 			r1.createCell(4).setCellValue(e);
 			r1.createCell(5).setCellValue(f1);
+			
+			//Font settings for Test Result
+			Font font2=wb.createFont();
+			font2.setColor(IndexedColors.BLUE.getIndex());
+		    font2.setItalic(true);
+		    //Cell Style settings for Test Result
+			CellStyle cs2=wb.createCellStyle();
+			cs2.setFont(font2);
+			r1.getCell(0).setCellStyle(cs2);
+			r1.getCell(1).setCellStyle(cs2);
+			r1.getCell(2).setCellStyle(cs2);
+			r1.getCell(3).setCellStyle(cs2);
+			r1.getCell(4).setCellStyle(cs2);
+			r1.getCell(5).setCellStyle(cs2);
+			
 		}
 		for(int i=0;i<6;i++)
 		{
