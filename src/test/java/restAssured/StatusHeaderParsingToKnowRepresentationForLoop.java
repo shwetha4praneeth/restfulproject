@@ -72,6 +72,5 @@ public class StatusHeaderParsingToKnowRepresentationForLoop
 		//Get response body
 		String rbody=res.getBody().asString();
 		System.out.println("Response body is :\n"+rbody);
-
 	}
 }
