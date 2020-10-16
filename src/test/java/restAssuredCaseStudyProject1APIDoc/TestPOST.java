@@ -24,5 +24,8 @@ public class TestPOST
 		//Send HTTP Request with one path parameter value
 		Response res=req.post("/create");
 		//Validate response
+		System.out.println("The status code received: "+res.getStatusCode());
+		System.out.println(res.getHeader("Content-Type"));
+		System.out.println("Response body:\n "+res.body().asString());
 	}
 }

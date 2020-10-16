@@ -38,9 +38,9 @@ public class JSONComplexResponseParsingRestAPIExample4
 		
 		for(int i=0;i<noer;i++)
 		{
-			int x=(int) loemprec.get(i).get("employee_salary");
-			int y=(int) loemprec.get(i).get("employee_age");
-			if(x>=250000 && y>=50)
+			String x=(String) loemprec.get(i).get("employee_salary");
+			String y=(String) loemprec.get(i).get("employee_age");
+			if(x.equals("250000") || y.equals("40"))
 			{
 				System.out.println("Employee"+(i+1)+" record:");
 				System.out.println("Emp name is-->"+loemprec.get(i).get("employee_name"));
